@@ -20,7 +20,7 @@ public record InquiryCreateRequest(
 
         @NotEmpty
         @Valid
-        List<InquiryPositionResponse> positions
+        List<InquiryPositionDto> positions
 
 ) {
 }

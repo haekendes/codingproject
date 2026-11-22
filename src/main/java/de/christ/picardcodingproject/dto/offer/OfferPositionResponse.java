@@ -5,8 +5,6 @@ import java.util.UUID;
 
 public record OfferPositionResponse(
 
-        UUID id,
-
         String articleName,
 
         BigDecimal quantity,

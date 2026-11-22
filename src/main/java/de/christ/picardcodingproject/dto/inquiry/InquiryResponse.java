@@ -20,7 +20,7 @@ public record InquiryResponse(
 
         Instant receivedAt,
 
-        List<InquiryPositionResponse> positions,
+        List<InquiryPositionDto> positions,
 
         OfferSummaryResponse offer
 
