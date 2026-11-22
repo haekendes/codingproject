@@ -1,4 +1,4 @@
-package com.christ.picardcodingproject.enums;
+package de.christ.picardcodingproject.enums;
 
 public enum InquiryStatus {
     OPEN,
