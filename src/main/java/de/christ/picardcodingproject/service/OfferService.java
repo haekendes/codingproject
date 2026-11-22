@@ -175,4 +175,40 @@ public class OfferService {
                 positions
         );
     }
+
+    @Transactional(readOnly = true)
+    public List<OfferResponse> searchOffers(
+            OfferStatus status,
+            String customerReference
+    ) {
+        List<Offer> offers;
+
+        if (status != null && customerReference != null
+                && !customerReference.isBlank()) {
+
+            offers = offerRepository
+                    .findAllByStatusAndInquiryCustomerReference(
+                            status,
+                            customerReference
+                    );
+
+        } else if (status != null) {
+
+            offers = offerRepository.findAllByStatus(status);
+
+        } else if (customerReference != null
+                && !customerReference.isBlank()) {
+
+            offers = offerRepository
+                    .findAllByInquiryCustomerReference(customerReference);
+
+        } else {
+
+            offers = offerRepository.findAll();
+        }
+
+        return offers.stream()
+                .map(this::mapToResponse)
+                .toList();
+    }
 }
