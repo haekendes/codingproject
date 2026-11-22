@@ -1,0 +1,25 @@
+services:
+  postgres:
+    image: postgres:18
+    container_name: picard-postgres
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: picarddb
+      POSTGRES_USER: picard
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+    ports:
+      - "127.0.0.1:5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U picard -d picarddb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
