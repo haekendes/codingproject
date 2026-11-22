@@ -69,12 +69,10 @@ public class Offer {
 
     public Offer(
             String offerNumber,
-            Inquiry inquiry,
-            Instant createdAt
+            Inquiry inquiry
     ) {
         this.offerNumber = offerNumber;
         this.inquiry = inquiry;
-        this.createdAt = createdAt;
 
         inquiry.assignOffer(this);
     }
