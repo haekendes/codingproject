@@ -6,7 +6,7 @@ import de.christ.picardcodingproject.data.entity.InquiryPosition;
 import de.christ.picardcodingproject.data.entity.Offer;
 import de.christ.picardcodingproject.data.repository.InquiryRepository;
 import de.christ.picardcodingproject.dto.inquiry.InquiryCreateRequest;
-import de.christ.picardcodingproject.dto.inquiry.InquiryPositionResponse;
+import de.christ.picardcodingproject.dto.inquiry.InquiryPositionDto;
 import de.christ.picardcodingproject.dto.inquiry.InquiryResponse;
 import de.christ.picardcodingproject.dto.offer.OfferSummaryResponse;
 import org.springframework.http.HttpStatus;
@@ -86,10 +86,9 @@ public class InquiryService {
 
     private InquiryResponse mapToResponse(Inquiry inquiry) {
 
-        List<InquiryPositionResponse> positions =
+        List<InquiryPositionDto> positions =
                 inquiry.getPositions().stream()
-                        .map(position -> new InquiryPositionResponse(
-                                position.getId(),
+                        .map(position -> new InquiryPositionDto(
                                 position.getArticleName(),
                                 position.getQuantity(),
                                 position.getUnitPrice()
