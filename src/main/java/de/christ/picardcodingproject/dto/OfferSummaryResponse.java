@@ -1,5 +1,5 @@
 
-package de.christ.picardcodingproject.dto.offer;
+package de.christ.picardcodingproject.dto;
 
 import de.christ.picardcodingproject.enums.OfferStatus;
 

@@ -1,8 +1,7 @@
 
-package de.christ.picardcodingproject.dto.inquiry;
+package de.christ.picardcodingproject.dto;
 
 import de.christ.picardcodingproject.enums.InquiryStatus;
-import de.christ.picardcodingproject.dto.offer.OfferSummaryResponse;
 
 import java.time.Instant;
 import java.util.List;
@@ -25,17 +24,4 @@ public record InquiryResponse(
         OfferSummaryResponse offer
 
 ) {
-
-    public record InquiryPositionResponse(
-
-            UUID id,
-
-            String articleName,
-
-            java.math.BigDecimal quantity,
-
-            java.math.BigDecimal unitPrice
-
-    ) {
-    }
 }

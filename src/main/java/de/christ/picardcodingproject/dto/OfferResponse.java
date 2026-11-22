@@ -1,7 +1,6 @@
 
-package de.christ.picardcodingproject.dto.offer;
+package de.christ.picardcodingproject.dto;
 
-import de.christ.picardcodingproject.dto.OfferPositionResponse;
 import de.christ.picardcodingproject.enums.OfferStatus;
 
 import java.math.BigDecimal;

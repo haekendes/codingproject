@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 
-public record InquiryPositionDto(
+public record InquiryPositionResponse(
 
         @NotBlank
         @Size(max = 255)
