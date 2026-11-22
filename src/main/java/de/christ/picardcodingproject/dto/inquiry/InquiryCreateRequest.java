@@ -10,15 +10,15 @@ import java.util.List;
 
 public record InquiryCreateRequest(
 
-        @NotBlank
-        @Size(max = 100)
+        @NotBlank(message = "External inquiry number is required.")
+        @Size(max = 100, message = "External inquiry number must not exceed 100 characters.")
         String externalInquiryNumber,
 
-        @NotBlank
-        @Size(max = 100)
+        @NotBlank(message = "Customer reference is required.")
+        @Size(max = 100, message = "Customer reference must not exceed 100 characters.")
         String customerReference,
 
-        @NotEmpty
+        @NotEmpty(message = "At least one inquiry position is required.")
         @Valid
         List<InquiryPositionDto> positions
 
