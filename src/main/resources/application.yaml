@@ -8,6 +8,10 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: true
+    open-in-view: false
+
+  server:
+    port: 8080
 
