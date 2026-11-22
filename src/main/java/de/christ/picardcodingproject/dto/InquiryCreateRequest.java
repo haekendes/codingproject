@@ -1,4 +1,4 @@
 package de.christ.picardcodingproject.dto;
 
-public class InquiryDto {
+public record InquiryCreateRequest() {
 }
