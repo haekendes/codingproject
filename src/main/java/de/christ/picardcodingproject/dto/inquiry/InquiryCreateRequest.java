@@ -1,5 +1,5 @@
 
-package de.christ.picardcodingproject.dto;
+package de.christ.picardcodingproject.dto.inquiry;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;

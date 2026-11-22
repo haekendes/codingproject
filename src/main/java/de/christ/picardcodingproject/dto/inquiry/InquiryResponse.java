@@ -1,6 +1,7 @@
 
-package de.christ.picardcodingproject.dto;
+package de.christ.picardcodingproject.dto.inquiry;
 
+import de.christ.picardcodingproject.dto.offer.OfferSummaryResponse;
 import de.christ.picardcodingproject.enums.InquiryStatus;
 
 import java.time.Instant;

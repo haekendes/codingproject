@@ -1,4 +1,4 @@
-package de.christ.picardcodingproject.dto;
+package de.christ.picardcodingproject.dto.inquiry;
 
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;

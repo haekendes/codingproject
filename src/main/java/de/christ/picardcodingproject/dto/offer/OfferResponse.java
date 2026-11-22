@@ -1,17 +1,22 @@
 
-package de.christ.picardcodingproject.dto;
+package de.christ.picardcodingproject.dto.offer;
 
 import de.christ.picardcodingproject.enums.OfferStatus;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
-public record OfferSummaryResponse(
+public record OfferResponse(
 
         UUID id,
 
         String offerNumber,
+
+        UUID inquiryId,
+
+        String customerReference,
 
         OfferStatus status,
 
@@ -19,7 +24,9 @@ public record OfferSummaryResponse(
 
         Instant createdAt,
 
-        Instant sentAt
+        Instant sentAt,
+
+        List<OfferPositionResponse> positions
 
 ) {
 }

@@ -1,4 +1,4 @@
-package de.christ.picardcodingproject.dto;
+package de.christ.picardcodingproject.dto.offer;
 
 import java.math.BigDecimal;
 import java.util.UUID;
