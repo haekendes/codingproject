@@ -5,8 +5,10 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.UUID;
 
 @Entity
@@ -31,6 +33,10 @@ public class InquiryPosition {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "inquiry_id", nullable = false)
     private Inquiry inquiry;
+
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private Instant createdAt;
 
     public InquiryPosition(
             String articleName,

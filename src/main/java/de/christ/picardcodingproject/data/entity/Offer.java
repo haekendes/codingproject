@@ -7,6 +7,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -47,9 +48,6 @@ public class Offer {
     @Column(name = "total_amount", nullable = false, precision = 19, scale = 2)
     private BigDecimal totalAmount = BigDecimal.ZERO;
 
-    @Column(name = "created_at", nullable = false)
-    private Instant createdAt;
-
     @Column(name = "sent_at")
     @Setter
     private Instant sentAt;
@@ -63,7 +61,11 @@ public class Offer {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private List<OfferPosition> positions = new ArrayList<>();
+    private final List<OfferPosition> positions = new ArrayList<>();
+
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private Instant createdAt;
 
     public Offer(
             String offerNumber,
@@ -73,6 +75,8 @@ public class Offer {
         this.offerNumber = offerNumber;
         this.inquiry = inquiry;
         this.createdAt = createdAt;
+
+        inquiry.assignOffer(this);
     }
 
     public void addPosition(OfferPosition position) {

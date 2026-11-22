@@ -7,6 +7,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -50,10 +51,14 @@ public class Inquiry {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private List<InquiryPosition> positions = new ArrayList<>();
+    private final List<InquiryPosition> positions = new ArrayList<>();
 
-    @OneToOne(mappedBy = "inquiry", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "inquiry")
     private Offer offer;
+
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private Instant createdAt;
 
     public Inquiry(
             String externalInquiryNumber,
@@ -63,6 +68,10 @@ public class Inquiry {
         this.externalInquiryNumber = externalInquiryNumber;
         this.customerReference = customerReference;
         this.receivedAt = receivedAt;
+    }
+
+    public void assignOffer(Offer offer) {
+        this.offer = offer;
     }
 
     public void addPosition(InquiryPosition position) {
