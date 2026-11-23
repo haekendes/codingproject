@@ -37,7 +37,8 @@ public class Offer {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(name = "offer_number", nullable = false)
+
+    @Column(name = "offer_number", nullable = false, unique = true)
     private String offerNumber;
 
     @Enumerated(EnumType.STRING)
