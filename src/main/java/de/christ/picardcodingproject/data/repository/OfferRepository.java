@@ -6,14 +6,9 @@ import de.christ.picardcodingproject.enums.OfferStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public interface OfferRepository extends JpaRepository<Offer, UUID> {
-
-    Optional<Offer> findByOfferNumber(String offerNumber);
-
-    Optional<Offer> findByInquiryId(UUID inquiryId);
 
     List<Offer> findAllByStatus(OfferStatus status);
 
@@ -26,5 +21,4 @@ public interface OfferRepository extends JpaRepository<Offer, UUID> {
 
     boolean existsByInquiryId(UUID inquiryId);
 
-    boolean existsByOfferNumber(String offerNumber);
 }
