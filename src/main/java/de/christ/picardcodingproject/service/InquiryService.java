@@ -3,12 +3,10 @@ package de.christ.picardcodingproject.service;
 
 import de.christ.picardcodingproject.data.entity.Inquiry;
 import de.christ.picardcodingproject.data.entity.InquiryPosition;
-import de.christ.picardcodingproject.data.entity.Offer;
 import de.christ.picardcodingproject.data.repository.InquiryRepository;
 import de.christ.picardcodingproject.dto.inquiry.InquiryCreateRequest;
 import de.christ.picardcodingproject.dto.inquiry.InquiryPositionDto;
 import de.christ.picardcodingproject.dto.inquiry.InquiryResponse;
-import de.christ.picardcodingproject.dto.offer.OfferSummaryResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -95,29 +93,13 @@ public class InquiryService {
                         ))
                         .toList();
 
-        OfferSummaryResponse offerSummary = null;
-
-        Offer offer = inquiry.getOffer();
-
-        if (offer != null) {
-            offerSummary = new OfferSummaryResponse(
-                    offer.getId(),
-                    offer.getOfferNumber(),
-                    offer.getStatus(),
-                    offer.getTotalAmount(),
-                    offer.getCreatedAt(),
-                    offer.getSentAt()
-            );
-        }
-
         return new InquiryResponse(
                 inquiry.getId(),
                 inquiry.getExternalInquiryNumber(),
                 inquiry.getCustomerReference(),
                 inquiry.getStatus(),
                 inquiry.getReceivedAt(),
-                positions,
-                offerSummary
+                positions
         );
     }
 }

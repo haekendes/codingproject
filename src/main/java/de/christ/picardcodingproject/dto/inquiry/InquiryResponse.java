@@ -1,7 +1,6 @@
 
 package de.christ.picardcodingproject.dto.inquiry;
 
-import de.christ.picardcodingproject.dto.offer.OfferSummaryResponse;
 import de.christ.picardcodingproject.enums.InquiryStatus;
 
 import java.time.Instant;
@@ -20,9 +19,7 @@ public record InquiryResponse(
 
         Instant receivedAt,
 
-        List<InquiryPositionDto> positions,
-
-        OfferSummaryResponse offer
+        List<InquiryPositionDto> positions
 
 ) {
 }
