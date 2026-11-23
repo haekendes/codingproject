@@ -3,26 +3,14 @@
 
 BASE_URL="http://localhost:8080"
 
-# Examples:
-# ./08-search-offers.sh
-# ./08-search-offers.sh SENT
-# ./08-search-offers.sh SENT CUSTOMER-123
+echo "Alle Angebote:"
+curl -i "$BASE_URL/offers"
 
-STATUS="$1"
-CUSTOMER_REFERENCE="$2"
+echo -e "\nAngebote mit Status DRAFT:"
+curl -i "$BASE_URL/offers?status=DRAFT"
 
-URL="$BASE_URL/offers"
+echo -e "\nAngebote für CUSTOMER-123:"
+curl -i "$BASE_URL/offers?customerReference=CUSTOMER-123"
 
-if [ -n "$STATUS" ]; then
-  URL="$URL?status=$STATUS"
-fi
-
-if [ -n "$CUSTOMER_REFERENCE" ]; then
-  if [[ "$URL" == *"?"* ]]; then
-    URL="$URL&customerReference=$CUSTOMER_REFERENCE"
-  else
-    URL="$URL?customerReference=$CUSTOMER_REFERENCE"
-  fi
-fi
-
-curl -i "$URL"
+echo -e "\nKombinierte Suche:"
+curl -i "$BASE_URL/offers?status=DRAFT&customerReference=CUSTOMER-123"
