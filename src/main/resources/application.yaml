@@ -16,11 +16,8 @@ server:
   port: 8080
 
 app:
-  offer-generation:
-    fixed-delay: 3000
-    initial-delay: 1000
-  offer-sending:
-    fixed-delay: 3000
+  offer-processing:
+    fixed-delay: 5000
     initial-delay: 1000
   web-frontend:
     offer-url: https://webhook.site/37695079-8c7b-404f-a809-97d1d44ec179
