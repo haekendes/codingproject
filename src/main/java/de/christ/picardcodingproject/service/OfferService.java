@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,31 +23,6 @@ public class OfferService {
 
     private final InquiryRepository inquiryRepository;
     private final OfferRepository offerRepository;
-
-    public OfferResponse sendOffer(UUID offerId) {
-
-        Offer offer = findOffer(offerId);
-
-        if (!offer.getStatus().canTransitionTo(OfferStatus.SENT)) {
-            throw new ResponseStatusException(
-                    HttpStatus.CONFLICT,
-                    "Offer cannot be sent from its current status."
-            );
-        }
-
-        if (offer.getPositions().isEmpty()
-                || offer.getTotalAmount().signum() <= 0) {
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST,
-                    "An offer must contain at least one position and have a total amount greater than zero."
-            );
-        }
-
-        offer.setStatus(OfferStatus.SENT);
-        offer.setSentAt(Instant.now());
-
-        return mapToResponse(offer);
-    }
 
     public OfferResponse acceptOffer(UUID offerId) {
 
