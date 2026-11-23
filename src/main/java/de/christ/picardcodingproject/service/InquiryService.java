@@ -7,6 +7,7 @@ import de.christ.picardcodingproject.data.repository.InquiryRepository;
 import de.christ.picardcodingproject.dto.inquiry.InquiryCreateRequest;
 import de.christ.picardcodingproject.dto.inquiry.InquiryPositionDto;
 import de.christ.picardcodingproject.dto.inquiry.InquiryResponse;
+import de.christ.picardcodingproject.enums.InquiryStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -68,16 +69,26 @@ public class InquiryService {
     }
 
     @Transactional(readOnly = true)
-    public InquiryResponse getInquiryByExternalNumber(String externalNumber) {
+    public List<InquiryResponse> searchInquiries(
+            InquiryStatus status,
+            String customerReference
+    ) {
+        List<Inquiry> inquiries;
 
-        Inquiry inquiry = inquiryRepository
-                .findByExternalInquiryNumber(externalNumber)
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND,
-                        "Inquiry not found."
-                ));
+        if (status != null && customerReference != null) {
+            inquiries = inquiryRepository
+                    .findAllByStatusAndCustomerReference(status, customerReference);
+        } else if (status != null) {
+            inquiries = inquiryRepository.findAllByStatus(status);
+        } else if (customerReference != null) {
+            inquiries = inquiryRepository.findAllByCustomerReference(customerReference);
+        } else {
+            inquiries = inquiryRepository.findAll();
+        }
 
-        return mapToResponse(inquiry);
+        return inquiries.stream()
+                .map(this::mapToResponse)
+                .toList();
     }
 
     private InquiryResponse mapToResponse(Inquiry inquiry) {

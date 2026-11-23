@@ -16,4 +16,11 @@ public interface InquiryRepository extends JpaRepository<Inquiry, UUID> {
     List<Inquiry> findAllByStatus(InquiryStatus status);
 
     boolean existsByExternalInquiryNumber(String externalInquiryNumber);
+
+    List<Inquiry> findAllByCustomerReference(String customerReference);
+
+    List<Inquiry> findAllByStatusAndCustomerReference(
+            InquiryStatus status,
+            String customerReference
+    );
 }

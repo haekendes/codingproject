@@ -3,22 +3,22 @@ package de.christ.picardcodingproject.controller;
 
 import de.christ.picardcodingproject.dto.inquiry.InquiryCreateRequest;
 import de.christ.picardcodingproject.dto.inquiry.InquiryResponse;
+import de.christ.picardcodingproject.enums.InquiryStatus;
 import de.christ.picardcodingproject.service.InquiryService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/inquiries")
+@RequiredArgsConstructor
 public class InquiryController {
 
     private final InquiryService inquiryService;
-
-    public InquiryController(InquiryService inquiryService) {
-        this.inquiryService = inquiryService;
-    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -33,10 +33,11 @@ public class InquiryController {
         return inquiryService.getInquiry(inquiryId);
     }
 
-    @GetMapping("/external/{externalNumber}")
-    public InquiryResponse getInquiryByExternalNumber(
-            @PathVariable String externalNumber
+    @GetMapping
+    public List<InquiryResponse> searchInquiries(
+            @RequestParam(required = false) InquiryStatus status,
+            @RequestParam(required = false) String customerReference
     ) {
-        return inquiryService.getInquiryByExternalNumber(externalNumber);
+        return inquiryService.searchInquiries(status, customerReference);
     }
 }
