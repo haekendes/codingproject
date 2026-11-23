@@ -34,11 +34,20 @@ cd picardcodingproject
 
 ### 2. Configure environment variables
 
-Set the database password:
+The database password is configured through an environment variable (`DB_PASSWORD`) and is not stored directly in `application.yml`.
+
+Before starting the Spring Boot application, set the `DB_PASSWORD` environment variable to your PostgreSQL password.
+
+**Linux / macOS:**
+
+```bash
+export DB_PASSWORD=your_database_password
 
 ```bash
 export DB_PASSWORD="your-secure-password"
 ```
+
+or set it in your run configuration in IntelliJ. 
 
 ### 3. Start PostgreSQL
 
