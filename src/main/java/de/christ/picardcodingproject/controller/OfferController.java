@@ -4,7 +4,6 @@ package de.christ.picardcodingproject.controller;
 import de.christ.picardcodingproject.dto.offer.OfferResponse;
 import de.christ.picardcodingproject.enums.OfferStatus;
 import de.christ.picardcodingproject.service.OfferService;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,20 +19,9 @@ public class OfferController {
         this.offerService = offerService;
     }
 
-    @PostMapping("/inquiries/{inquiryId}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public OfferResponse createOffer(@PathVariable UUID inquiryId) {
-        return offerService.createOffer(inquiryId);
-    }
-
     @GetMapping("/{offerId}")
     public OfferResponse getOffer(@PathVariable UUID offerId) {
         return offerService.getOffer(offerId);
-    }
-
-    @PatchMapping("/{offerId}/send")
-    public OfferResponse sendOffer(@PathVariable UUID offerId) {
-        return offerService.sendOffer(offerId);
     }
 
     @PatchMapping("/{offerId}/accept")

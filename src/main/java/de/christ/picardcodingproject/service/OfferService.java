@@ -1,15 +1,13 @@
 
 package de.christ.picardcodingproject.service;
 
-import de.christ.picardcodingproject.data.entity.Inquiry;
 import de.christ.picardcodingproject.data.entity.Offer;
-import de.christ.picardcodingproject.data.entity.OfferPosition;
 import de.christ.picardcodingproject.data.repository.InquiryRepository;
 import de.christ.picardcodingproject.data.repository.OfferRepository;
 import de.christ.picardcodingproject.dto.offer.OfferPositionResponse;
 import de.christ.picardcodingproject.dto.offer.OfferResponse;
-import de.christ.picardcodingproject.enums.InquiryStatus;
 import de.christ.picardcodingproject.enums.OfferStatus;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,56 +19,11 @@ import java.util.UUID;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class OfferService {
 
     private final InquiryRepository inquiryRepository;
     private final OfferRepository offerRepository;
-
-    public OfferService(
-            InquiryRepository inquiryRepository,
-            OfferRepository offerRepository
-    ) {
-        this.inquiryRepository = inquiryRepository;
-        this.offerRepository = offerRepository;
-    }
-
-    public OfferResponse createOffer(UUID inquiryId) {
-
-        Inquiry inquiry = inquiryRepository.findById(inquiryId)
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND,
-                        "Inquiry not found."
-                ));
-
-        if (offerRepository.existsByInquiryId(inquiryId)) {
-            throw new ResponseStatusException(
-                    HttpStatus.CONFLICT,
-                    "An offer already exists for this inquiry."
-            );
-        }
-
-        String offerNumber = generateOfferNumber();
-
-        Offer offer = new Offer(offerNumber, inquiry);
-
-        inquiry.getPositions().forEach(inquiryPosition -> {
-            OfferPosition offerPosition = new OfferPosition(
-                    inquiryPosition.getArticleName(),
-                    inquiryPosition.getQuantity(),
-                    inquiryPosition.getUnitPrice()
-            );
-
-            offer.addPosition(offerPosition);
-        });
-
-        offer.calculateTotalAmount();
-
-        inquiry.setStatus(InquiryStatus.PROCESSED);
-
-        Offer savedOffer = offerRepository.save(offer);
-
-        return mapToResponse(savedOffer);
-    }
 
     public OfferResponse sendOffer(UUID offerId) {
 
@@ -179,13 +132,6 @@ public class OfferService {
                         HttpStatus.NOT_FOUND,
                         "Offer not found."
                 ));
-    }
-
-    private String generateOfferNumber() {
-        return "OFF-" + UUID.randomUUID()
-                .toString()
-                .substring(0, 8)
-                .toUpperCase();
     }
 
     private OfferResponse mapToResponse(Offer offer) {

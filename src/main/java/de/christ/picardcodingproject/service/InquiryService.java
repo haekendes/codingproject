@@ -7,6 +7,7 @@ import de.christ.picardcodingproject.data.repository.InquiryRepository;
 import de.christ.picardcodingproject.dto.inquiry.InquiryCreateRequest;
 import de.christ.picardcodingproject.dto.inquiry.InquiryPositionDto;
 import de.christ.picardcodingproject.dto.inquiry.InquiryResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,13 +19,10 @@ import java.util.UUID;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class InquiryService {
 
     private final InquiryRepository inquiryRepository;
-
-    public InquiryService(InquiryRepository inquiryRepository) {
-        this.inquiryRepository = inquiryRepository;
-    }
 
     public InquiryResponse createInquiry(InquiryCreateRequest request) {
 
